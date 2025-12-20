@@ -44,7 +44,7 @@ Each row corresponds to:
 
 A recommended price for a specific cabin type on a specific day before departure.
 
-Key fields include:
+Key Fields
 
 days_to_departure
 
@@ -56,7 +56,7 @@ pct_sold
 
 daily_revenue
 
-demand and inventory signals
+Demand and inventory signals
 
 Visual Analysis
 
@@ -125,7 +125,3 @@ Comparison of alternative pricing strategies
 More detailed demand forecasting
 
 Dashboard visualization
-
-Author
-
-Built as a portfolio project for Revenue Management & Pricing Analytics roles
