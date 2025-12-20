@@ -1,108 +1,131 @@
-# Cruise Revenue Management & Pricing Simulation
+🚢 Cruise Revenue Management Pricing Simulation
+Overview
 
-## Overview
+This project simulates a Revenue Management pricing engine for a short cruise itinerary.
+The goal is to model how cabin prices evolve over the booking window as a function of demand, price sensitivity, inventory sell-through, and uncertainty.
 
-This project simulates a **Revenue Management (RM) pricing system** for a short cruise itinerary.
-The goal is to model how cruise cabin prices should evolve over time as departure approaches, accounting for demand growth, price sensitivity, seasonality, and operational constraints.
+Rather than analyzing static historical data, this project focuses on decision logic, mirroring how Revenue Management teams actually think about pricing.
 
-The project is inspired by pricing and revenue optimization practices used by cruise lines such as Royal Caribbean and Carnival.
+Business Problem
 
----
+Cruise lines must dynamically adjust prices as departure approaches in order to:
 
-## Business Problem
+Maximize revenue
 
-Cruise lines sell a **fixed inventory** of cabins over a limited booking window.
-Pricing decisions must balance:
+Manage limited cabin inventory
 
-* Maximizing total revenue
-* Managing price-sensitive vs premium demand
-* Responding to increasing demand closer to departure
-* Avoiding unrealistic price volatility
+Balance early demand with last-minute pricing power
 
-This project answers the question:
+Pricing decisions are made day by day, across multiple cabin products, under uncertainty.
 
-> *How should cruise cabin prices dynamically change as days-to-departure decrease in order to reflect realistic revenue management behavior?*
+This project answers:
 
----
+How should prices evolve as demand builds and inventory sells through?
 
-## Dataset Description
+Key Concepts Modeled
 
-The final dataset is a **synthetic revenue management pricing table**, where each row represents:
+Days to Departure as the primary time dimension
 
-> One cabin type, on one day before departure, with a recommended price.
+Cabin Segmentation (Interior, Outside, Balcony)
 
-### Key dimensions
+Price Elasticity differences across cabins
 
-* **Time:** Days to departure (90 → 1)
-* **Product:** Cabin category (Interior, Outside, Balcony)
+Demand Growth as departure approaches
 
-### Key variables
+Inventory Pressure in late booking stages
 
-* `days_to_departure`: Time remaining until sailing
-* `cabin_type`: Cabin category
-* `base_price`: Anchor price for each cabin
-* `demand_index`: Simulated booking pressure
-* `elasticity`: Price sensitivity by cabin type
-* `seasonality`: Peak vs normal demand adjustment
-* `daily_shock`: Random demand noise
-* `inventory_pressure`: Late-stage pricing push
-* `price`: Final recommended price
+Stochastic Shocks to avoid deterministic behavior
 
----
+Dataset
 
-## Pricing Logic
+The final dataset (data/processed/cruise_pricing_synthetic_final.csv) represents one pricing decision per cabin per day.
 
-Prices are generated using a **dynamic pricing model** that incorporates:
+Each row corresponds to:
 
-1. Demand growth as departure approaches
-2. Cabin-level price elasticity
-3. Seasonality effects
-4. Inventory pressure near sailing
-5. Stochastic daily shocks to avoid deterministic behavior
-6. Price floors and caps to ensure realistic bounds
-7. Smoothing to prevent unrealistic day-to-day jumps
+A recommended price for a specific cabin type on a specific day before departure.
 
-This mirrors how real RM teams simulate and evaluate pricing strategies internally.
+Key fields include:
 
----
+days_to_departure
 
-## Key Insights
+cabin_type
 
-* Prices generally **increase as departure approaches**
-* Premium cabins (Balcony) show **lower price sensitivity**
-* Interior cabins show **steeper price acceleration**
-* Late-stage pricing exhibits **controlled volatility**, reflecting tactical RM decisions
+price
 
----
+pct_sold
 
-## Tools & Technologies
+daily_revenue
 
-* Python (Pandas, NumPy)
-* Jupyter Notebook
-* Git & GitHub
+demand and inventory signals
 
----
+Visual Analysis
 
-## Project Structure
+All plots are programmatically exported to the figures/ folder for reproducibility.
 
-```
-cruise-revenue-management/
-├── data/
-│   └── processed/
-│       └── cruise_pricing_synthetic_final.csv
-├── notebooks/
-│   └── 02_synthetic_data_generation.ipynb
-├── README.md
-└── requirements.txt
-```
+1️⃣ Booking Rate vs Price
 
----
+File: 01_booking_rate_vs_price.png
 
-## Next Steps
+Shows how booking rates decline as prices increase, with cabin-specific trend lines.
+This illustrates price sensitivity and validates elasticity assumptions.
 
-Potential extensions of this project include:
+2️⃣ Revenue Share by Cabin
 
-* Simulating cabin bookings and inventory depletion
-* Calculating daily and cumulative revenue
-* Comparing alternative pricing strategies
-* Building a revenue management dashboard
+File: 02_revenue_share_by_cabin.png
+
+Displays how total revenue is distributed across cabin types.
+Higher-priced cabins generate a disproportionate share of revenue, despite lower volume.
+
+3️⃣ Price vs Inventory Sell-Through
+
+File: 03_price_vs_sell_through.png
+
+Shows how prices increase as a larger percentage of inventory is sold.
+This reflects inventory-based pricing pressure, a core RM principle.
+
+4️⃣ Inventory Sell-Through Over Time
+
+File: 04_sell_through_over_time.png
+
+Tracks how inventory is sold as departure approaches.
+This mirrors booking curves used in airline, cruise, and hotel Revenue Management.
+
+Technical Stack
+
+Python
+
+pandas
+
+NumPy
+
+matplotlib
+
+Jupyter Notebook
+
+All outputs are reproducible by running the notebook top-to-bottom.
+
+Key Takeaways
+
+Revenue Management decisions are time-based, not calendar-based
+
+Pricing must vary by product segment
+
+Realistic models require uncertainty, not smooth curves
+
+Inventory dynamics strongly influence late-stage pricing
+
+Future Extensions
+
+Possible next steps include:
+
+Optimization of price paths
+
+Comparison of alternative pricing strategies
+
+More detailed demand forecasting
+
+Dashboard visualization
+
+Author
+
+Built as a portfolio project for Revenue Management & Pricing Analytics roles
