@@ -6,9 +6,6 @@ This project simulates a Revenue Management pricing engine for a short cruise it
 The goal is to model how cabin prices evolve over the booking window as a function of demand,
 price sensitivity, inventory sell-through, and uncertainty.
 
-Rather than analyzing static historical data, this project focuses on **decision logic**,
-mirroring how Revenue Management teams actually think about pricing.
-
 ---
 
 ## Business Problem
