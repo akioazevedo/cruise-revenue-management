@@ -141,6 +141,7 @@ cruise-revenue-management/
 ├── requirements.txt
 └── README.md
 
+--
 ## How to Run the Project
 
 1. **Clone the repository**
