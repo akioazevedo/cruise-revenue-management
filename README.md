@@ -118,7 +118,7 @@ forecast → decide → observe (later)
   - optimized cumulative revenue  
   by cabin type
 
---
+---
 
 ## How to Run the Project
 
