@@ -120,6 +120,26 @@ forecast → decide → observe (later)
 
 ---
 
+## Tableau Dashboard
+
+This project includes an interactive Tableau dashboard that simulates
+revenue management pricing decisions for a cruise itinerary.
+
+**File:**
+- `tableau/cruise-revenue-management-dashboard.twbx`
+
+**Dashboard Features:**
+- KPI cards for revenue uplift, bookings, and pricing
+- Interactive filters by cabin type and booking window
+- Comparison of expected vs optimized pricing outcomes
+- Revenue contribution by cabin type
+
+To view the dashboard:
+1. Download the `.twbx` file
+2. Open it using Tableau Desktop
+
+---
+
 ## How to Run the Project
 
 1. **Clone the repository**
