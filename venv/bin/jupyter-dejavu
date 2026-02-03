@@ -1,4 +1,4 @@
-#!/Users/akiomaebayashi/Desktop/cruise-revenue-management/venv/bin/python3
+#!/Users/akiomaebayashi/Desktop/cruise-revenue-management/venv/bin/python3.14
 import sys
 from nbconvert.nbconvertapp import dejavu_main
 if __name__ == '__main__':
