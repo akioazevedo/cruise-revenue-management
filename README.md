@@ -75,45 +75,28 @@ I built a dashboard showing:
 ### Setup Steps
 
 1. **Clone this repo**
->>>>>>> 526f0ffe (updated readme file)
 ```bash
 git clone https://github.com/akioazevedo/cruise-revenue-management.git
 cd cruise-revenue-management
 ```
 
-<<<<<<< HEAD
-2. **Create virtual environment**
-=======
 2. **Set up Python environment**
->>>>>>> 526f0ffe (updated readme file)
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\\Scripts\\activate
 ```
 
-<<<<<<< HEAD
-3. **Install dependencies**
-=======
 3. **Install packages**
->>>>>>> 526f0ffe (updated readme file)
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn jupyter
 ```
 
-<<<<<<< HEAD
-4. **Launch Jupyter**
-=======
 4. **Start Jupyter**
->>>>>>> 526f0ffe (updated readme file)
 ```bash
 jupyter notebook
 ```
 
-<<<<<<< HEAD
-5. **Open and run** `notebooks/01_data_generation.ipynb`
-=======
 5. **Open** `notebooks/01_data_generation.ipynb` and run it
->>>>>>> 526f0ffe (updated readme file)
 
 ---
 
@@ -122,16 +105,6 @@ jupyter notebook
 cruise-revenue-management/
 ├── data/
 │   └── processed/
-<<<<<<< HEAD
-│       └── cruise_bookings.csv      # Generated dataset (480 rows)
-├── figures/
-│   └── dashboard_complete.png        # 6-plot analysis dashboard
-├── notebooks/
-│   ├── 01_data_generation.ipynb      # Data generation (complete)
-│   ├── 02_demand_forecasting.ipynb   # ML models (coming soon)
-│   └── 03_price_optimization.ipynb   # Optimization (coming soon)
-├── .gitignore
-=======
 │       └── cruise_bookings.csv      # The dataset I generated
 ├── figures/
 │   └── dashboard_complete.png        # Visualizations
@@ -139,59 +112,11 @@ cruise-revenue-management/
 │   ├── 01_data_generation.ipynb      # ✅ Complete
 │   ├── 02_demand_forecasting.ipynb   # 🚧 Coming soon
 │   └── 03_price_optimization.ipynb   # 🚧 Planned
->>>>>>> 526f0ffe (updated readme file)
 └── README.md
 ```
 
 ---
 
-<<<<<<< HEAD
-## 🧠 Technical Approach
-
-### Data Generation (Notebook 1)
-- **Urgency Effect:** Exponential demand growth as sailing approaches
-- **Price Elasticity:** Different customer segments respond differently to price (economy: 1.3, deluxe: 0.3)
-- **Dynamic Pricing:** Prices increase 60% from 120 days out to departure
-- **Stochastic Demand:** Poisson distribution for daily bookings + lognormal shocks
-
-### Machine Learning (Notebook 2 - Planned)
-- **Target Variable:** Daily bookings per cabin type
-- **Features:** Price, days to departure, cabin type, remaining inventory
-- **Models:** Linear Regression baseline → Random Forest → XGBoost
-- **Validation:** 80/20 train-test split (days 1-96 / days 97-120)
-
-### Optimization (Notebook 3 - Planned)
-- **Objective:** Maximize total revenue
-- **Constraints:** Minimum 85% occupancy, inventory limits
-- **Method:** Grid search or gradient-based optimization
-
----
-
-## 💡 Skills Demonstrated
-
-- **Business Acumen:** Revenue management strategy, premium pricing
-- **Statistical Modeling:** Price elasticity, probability distributions
-- **Python:** Pandas, NumPy, Matplotlib
-- **Data Engineering:** Synthetic data generation, data validation
-- **Machine Learning:** (Coming in Notebook 2)
-- **Optimization:** (Coming in Notebook 3)
-
----
-
-## 📈 Future Enhancements
-
-- [ ] Add seasonal effects (summer vs winter cruises)
-- [ ] Incorporate competitor pricing
-- [ ] Model cancellations and no-shows
-- [ ] A/B testing framework for pricing strategies
-- [ ] Power BI dashboard for interactive exploration
-
----
-
-## 📫 Contact
-
-**Akio Azevedo**
-=======
 ## 🧠 What I'm Learning
 
 **From my coursework:**
@@ -238,29 +163,10 @@ For Notebook 2, I'll:
 
 **Akio Azevedo**
 
->>>>>>> 526f0ffe (updated readme file)
 - GitHub: [@akioazevedo](https://github.com/akioazevedo)
 - LinkedIn: [Your LinkedIn]
 - Email: [Your Email]
 
-<<<<<<< HEAD
----
-
-## 📝 License
-
-This project is open source and available for educational purposes.
-"""
-
-# Write README to file
-with open('../README.md', 'w') as f:
-    f.write(readme_content)
-
-print("✓ README.md created successfully!")
-print("\nNext steps:")
-print("1. Update the contact section with your LinkedIn/Email")
-print("2. Review the results table with your actual numbers")
-print("3. Commit: git add README.md && git commit -m 'Add professional README' && git push")
-=======
 I'm actively looking for **Data Analyst** and **Business Analyst** opportunities where I can apply these skills!
 
 ---
@@ -268,4 +174,3 @@ I'm actively looking for **Data Analyst** and **Business Analyst** opportunities
 ## 📝 Note
 
 This is a portfolio project for my grad program. The data is synthetic (I created it), but it's designed to mimic real cruise booking patterns based on industry research.
->>>>>>> 526f0ffe (updated readme file)
