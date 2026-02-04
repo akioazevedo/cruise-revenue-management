@@ -159,18 +159,6 @@ For Notebook 2, I'll:
 
 ---
 
-## 📫 Get in Touch
-
-**Akio Azevedo**
-
-- GitHub: [@akioazevedo](https://github.com/akioazevedo)
-- LinkedIn: [Your LinkedIn]
-- Email: [Your Email]
-
-I'm actively looking for **Data Analyst** and **Business Analyst** opportunities where I can apply these skills!
-
----
-
 ## 📝 Note
 
 This is a portfolio project for my grad program. The data is synthetic (I created it), but it's designed to mimic real cruise booking patterns based on industry research.
