@@ -1,5 +1,3 @@
-readme_content = """# Cruise Revenue Management: Data-Driven Pricing Optimization
-
 **Author:** Akio Azevedo  
 **Goal:** Apply machine learning and optimization techniques to maximize cruise line revenue
 
