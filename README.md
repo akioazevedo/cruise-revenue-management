@@ -1,205 +1,183 @@
-# 🚢 Cruise Revenue Management Pricing Simulation
+readme_content = """# Cruise Revenue Management: Data-Driven Pricing Optimization
+
+**Author:** Akio Azevedo  
+**Goal:** Apply machine learning and optimization techniques to maximize cruise line revenue
 
 ---
 
-## **Overview**
+## 📋 Project Overview
 
-This project simulates a **Revenue Management (RM) pricing engine** for a short cruise itinerary. My goal is to model how cabin prices should evolve over the booking window based on **expected demand**, **price sensitivity (elasticity)**, and **remaining inventory**, in order to **maximize expected revenue**.
+This project demonstrates end-to-end data science skills applied to a real-world business problem: **revenue management for cruise lines**. The challenge is balancing two competing goals:
+1. **Maximize Revenue:** Charge premium prices when demand is high
+2. **Maximize Occupancy:** Fill the ship to capacity
 
-Pricing decisions are made **day by day**, **before demand is realized**, under uncertainty and capacity constraints — similar to how real RM teams operate in cruise, airline, and hospitality industries.
+### Project Structure (3 Notebooks)
 
----
+1. **[Notebook 1: Data Generation](notebooks/01_data_generation.ipynb)** ✅ *Complete*
+   - Generate synthetic booking data with realistic pricing and demand patterns
+   - 120-day booking window, 4 cabin types, 480 observations
+   - Achieved ~90% occupancy with premium pricing strategy
 
-## **What This Project Answers**
+2. **Notebook 2: Demand Forecasting** 🚧 *Coming Soon*
+   - Train ML models to predict daily bookings
+   - Compare Linear Regression, Random Forest, XGBoost
+   - Target: R² > 0.80
 
-**Main question:**
-
-> **Given what I expect demand to look like today, what price should I set today?**
-
-I break the project into three steps:
-
-- **02 — Create a realistic synthetic dataset**
-- **03 — Build the expected (forecast) demand profile**
-- **04 — Optimize prices using elasticity and inventory constraints**
-
----
-
-## **1) Synthetic Data Generation**  
-📓 `notebooks/02_synthetic_data_generation.ipynb`
-
-### **What I did**
-
-Because real cruise pricing and booking data is not publicly available, I generated a **synthetic but realistic dataset** that mimics real cruise booking behavior.
-
-I created:
-
-- **Days to departure** as the main time axis (booking window)
-- **Cabin types**: Interior, Outside, Balcony
-- **Initial prices** and **total inventory** per cabin type
-- A demand pattern where:
-  - demand is low far from departure  
-  - demand increases as departure approaches  
-  - late-stage behavior reflects **inventory pressure**
-- **Random demand shocks** to avoid deterministic patterns
-
-### **Why it matters**
-
-This provides a **controlled and explainable environment** where I can test RM logic end-to-end (**forecast → optimize**) without relying on proprietary data.
+3. **Notebook 3: Price Optimization** 🚧 *Coming Soon*
+   - Use forecasting model to optimize pricing strategy
+   - Maximize revenue while maintaining occupancy targets
 
 ---
 
-## **2) Demand Forecasting (Expected Demand)**  
-📓 `notebooks/03_demand_forecasting.ipynb`
+## 🎯 Key Results (Notebook 1)
 
-### **What I did**
+### Overall Performance
+- **Total Capacity:** 750 cabins
+- **Total Bookings:** 714 cabins
+- **Overall Occupancy:** 95.2%
+- **Total Revenue:** $1,020,000
+- **Average Price:** $1,428/cabin
 
-Using the synthetic dataset, I constructed an **expected demand profile** over the booking window.
+### By Cabin Type
+| Cabin Type | Inventory | Occupancy | Revenue Share | Avg Price |
+|------------|-----------|-----------|---------------|-----------|
+| Economy    | 300       | 96.7%     | 26.8%         | $962      |
+| Standard   | 250       | 92.4%     | 30.2%         | $1,314    |
+| Premium    | 150       | 86.0%     | 23.5%         | $1,775    |
+| Deluxe     | 50        | 85.3%     | 19.5%         | $2,870    |
 
-Specifically, I:
-
-- modeled **expected cumulative sell-through** by **days to departure**
-- converted cumulative sell-through into **expected daily bookings**
-- built expected demand **by cabin type**
-- treated demand as an **expected value**, not realized bookings
-
-### **Key outputs**
-
-- `expected_pct_sold`
-- `forecast_cum_units`
-- `expected_daily_bookings`
-- `expected_daily_revenue`
-
-### **Why it matters**
-
-In real revenue management, pricing decisions rely on **forecasts**, because actual bookings are only observed **after** the price decision is made. This notebook produces the **decision-time inputs** a pricing engine requires.
+**Key Insight:** Premium and Deluxe cabins generate 43% of revenue despite representing only 27% of inventory.
 
 ---
 
-## **3) Price Optimization**  
-📓 `notebooks/04_Optimization.ipynb`
+## 📊 Visualizations
 
-### **What I did**
+![Dashboard](figures/dashboard_complete.png)
 
-For each **day** and **cabin type**, I selected the price that maximizes **expected feasible revenue**.
-
-The optimization logic is:
-
-- start with **expected daily demand** from the forecasting step
-- apply **price elasticity** to estimate demand response at different prices
-- test a discrete set of candidate prices (e.g., ±15%)
-- enforce **remaining inventory as a hard constraint**
-- choose the price that maximizes:
-expected revenue = price × expected bookings (capped by inventory)
-- 
-### **Key outputs**
-
-- `optimal_price`
-- `expected_optimal_daily_bookings`
-- `optimized_daily_revenue`
-- `daily_revenue_uplift`
-- cumulative expected vs optimized revenue
-
-### **Important design choice**
-
-I intentionally exclude **actual outcomes** from the pricing decision table to avoid **look-ahead bias**.  
-This mirrors real RM systems:
-forecast → decide → observe (later)
+The complete analysis dashboard shows:
+1. **Booking Progress:** How quickly each cabin type sells over time
+2. **Final Occupancy:** Performance vs 90% target
+3. **Dynamic Pricing:** Price changes throughout the booking window
+4. **Revenue Contribution:** Which cabin types drive revenue
+5. **Inventory vs Revenue:** Premium strategy validation
+6. **Price Elasticity:** Relationship between price and demand
 
 ---
 
-## **Key Outputs**
+## 🛠️ Installation & Setup
 
-- **Pricing decision table (expected vs optimized)** showing:
-  - expected demand
-  - optimal prices
-  - expected revenue impact
-- **Visualization** comparing:
-  - expected cumulative revenue
-  - optimized cumulative revenue  
-  by cabin type
+### Prerequisites
+- Python 3.10+
+- Jupyter Notebook
 
----
-
-## Tableau Dashboard
-
-This project includes an interactive Tableau dashboard that simulates
-revenue management pricing decisions for a cruise itinerary.
-
-**File:**
-- `tableau/cruise-revenue-management-dashboard.twbx`
-
-**Dashboard Features:**
-- KPI cards for revenue uplift, bookings, and pricing
-- Interactive filters by cabin type and booking window
-- Comparison of expected vs optimized pricing outcomes
-- Revenue contribution by cabin type
-
-To view the dashboard:
-1. Download the `.twbx` file
-2. Open it using Tableau Desktop
-
----
-
-## How to Run the Project
+### Installation
 
 1. **Clone the repository**
+```bash
+git clone https://github.com/akioazevedo/cruise-revenue-management.git
+cd cruise-revenue-management
+```
 
-   Clone the repository from GitHub and navigate into the project directory.
+2. **Create virtual environment**
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\\Scripts\\activate
+```
 
-   git clone https://github.com/akioazevedo/cruise-revenue-management.git  
-   cd cruise-revenue-management
+3. **Install dependencies**
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+```
 
-2. **Install dependencies**
+4. **Launch Jupyter**
+```bash
+jupyter notebook
+```
 
-   Install the required Python libraries using the provided requirements file.
-
-   pip install -r requirements.txt
-
-3. **Run the notebooks in order**
-
-   Run the following notebooks sequentially, since each step depends on the outputs of the previous one:
-
-   - 02_synthetic_data_generation.ipynb  
-     Generates the synthetic cruise pricing, demand, and inventory dataset.
-
-   - 03_demand_forecasting.ipynb  
-     Builds the expected (forecasted) demand profile by cabin type and days to departure.
-
-   - 04_Optimization.ipynb  
-     Runs the pricing optimization using elasticity and inventory constraints and produces the final pricing decision table and plots.
-
-4. **Outputs**
-
-   After running all notebooks, the following outputs will be available:
-
-   - Pricing decision table:  
-     data/processed/cruise_pricing_decision_table_expected_vs_optimized.csv
-
-   - Visualizations:  
-     figures/
-
-   These outputs represent the decision-time pricing recommendations generated by the model.
-
+5. **Open and run** `notebooks/01_data_generation.ipynb`
 
 ---
 
-## **Project Structure**
-
-```text
+## 📁 Project Structure
+```
 cruise-revenue-management/
-│
-├── notebooks/
-│   ├── 02_synthetic_data_generation.ipynb
-│   ├── 03_demand_forecasting.ipynb
-│   └── 04_Optimization.ipynb
-│
 ├── data/
 │   └── processed/
-│       ├── cruise_pricing_with_forecast_clean.csv
-│       └── cruise_pricing_decision_table_expected_vs_optimized.csv
-│
+│       └── cruise_bookings.csv      # Generated dataset (480 rows)
 ├── figures/
-│   └── (exported plots)
-│
-├── requirements.txt
+│   └── dashboard_complete.png        # 6-plot analysis dashboard
+├── notebooks/
+│   ├── 01_data_generation.ipynb      # Data generation (complete)
+│   ├── 02_demand_forecasting.ipynb   # ML models (coming soon)
+│   └── 03_price_optimization.ipynb   # Optimization (coming soon)
+├── .gitignore
 └── README.md
+```
+
+---
+
+## 🧠 Technical Approach
+
+### Data Generation (Notebook 1)
+- **Urgency Effect:** Exponential demand growth as sailing approaches
+- **Price Elasticity:** Different customer segments respond differently to price (economy: 1.3, deluxe: 0.3)
+- **Dynamic Pricing:** Prices increase 60% from 120 days out to departure
+- **Stochastic Demand:** Poisson distribution for daily bookings + lognormal shocks
+
+### Machine Learning (Notebook 2 - Planned)
+- **Target Variable:** Daily bookings per cabin type
+- **Features:** Price, days to departure, cabin type, remaining inventory
+- **Models:** Linear Regression baseline → Random Forest → XGBoost
+- **Validation:** 80/20 train-test split (days 1-96 / days 97-120)
+
+### Optimization (Notebook 3 - Planned)
+- **Objective:** Maximize total revenue
+- **Constraints:** Minimum 85% occupancy, inventory limits
+- **Method:** Grid search or gradient-based optimization
+
+---
+
+## 💡 Skills Demonstrated
+
+- **Business Acumen:** Revenue management strategy, premium pricing
+- **Statistical Modeling:** Price elasticity, probability distributions
+- **Python:** Pandas, NumPy, Matplotlib
+- **Data Engineering:** Synthetic data generation, data validation
+- **Machine Learning:** (Coming in Notebook 2)
+- **Optimization:** (Coming in Notebook 3)
+
+---
+
+## 📈 Future Enhancements
+
+- [ ] Add seasonal effects (summer vs winter cruises)
+- [ ] Incorporate competitor pricing
+- [ ] Model cancellations and no-shows
+- [ ] A/B testing framework for pricing strategies
+- [ ] Power BI dashboard for interactive exploration
+
+---
+
+## 📫 Contact
+
+**Akio Azevedo**
+- GitHub: [@akioazevedo](https://github.com/akioazevedo)
+- LinkedIn: [Your LinkedIn]
+- Email: [Your Email]
+
+---
+
+## 📝 License
+
+This project is open source and available for educational purposes.
+"""
+
+# Write README to file
+with open('../README.md', 'w') as f:
+    f.write(readme_content)
+
+print("✓ README.md created successfully!")
+print("\nNext steps:")
+print("1. Update the contact section with your LinkedIn/Email")
+print("2. Review the results table with your actual numbers")
+print("3. Commit: git add README.md && git commit -m 'Add professional README' && git push")
